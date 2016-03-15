@@ -3,3 +3,8 @@ main: com.ulfric.lib.example.LibE
 version: 1.0.0-SNAPSHOT
 author: Packet
 depend: [Lib]
+commands:
+  ping:
+    description: PONG!
+  pong:
+    description: PING!
