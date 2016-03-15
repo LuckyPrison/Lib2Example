@@ -1,10 +1,13 @@
 package com.ulfric.lib.example;
 
 import com.ulfric.lib.bukkit.module.Plugin;
+import com.ulfric.lib.coffee.command.Argument;
 import com.ulfric.lib.coffee.command.Command;
 import com.ulfric.lib.coffee.event.HandlerMeta;
 import com.ulfric.lib.coffee.event.Listener;
 import com.ulfric.lib.craft.entity.player.Player;
+import com.ulfric.lib.craft.entity.player.PlayerUtils;
+import com.ulfric.lib.craft.event.block.BlockBreakEvent;
 import com.ulfric.lib.craft.event.player.PlayerJoinEvent;
 
 public class LibE extends Plugin /* Modular plugin */ {
@@ -39,6 +42,13 @@ public class LibE extends Plugin /* Modular plugin */ {
 				// Gives the player a speed potion effect
 				speed.boost(1000 /* Duration (ticks) */, 1 /* Amplifier (+1 shift) */, true /* Particles */);
 			}
+
+			@HandlerMeta(ignoreCancelled = true)
+			public void onBreak(BlockBreakEvent event)
+			{
+				event.setCancelled(true);
+				event.getPlayer().sendMessage("No breaking!");
+			}
 		});
 
 		// Registers a command with the module
@@ -47,10 +57,10 @@ public class LibE extends Plugin /* Modular plugin */ {
 			@Override
 			public void run()
 			{
-				// Sends "PONG!"
-				this.getSender().sendMessage("PONG!");
+				// Sends "PONG! <some bullshit>"
+				this.getSender().sendMessage("PONG! " + this.getObject("player"));
 			}
-		});
+		}.addArgument(Argument.builder().addResolver((sender, str) -> PlayerUtils.getPlayer(str)).setName("Player").setPath("player").setDefaultValue(PlayerUtils::getPlayer).build()));
 
 		// Simple version
 		this.addCommand("pong", command -> command.getSender().sendMessage("PING!")); // The simple version also returns the Command object, for argument chaining
