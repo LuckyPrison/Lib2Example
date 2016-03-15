@@ -53,7 +53,7 @@ public class LibE extends Plugin /* Modular plugin */ {
 		});
 
 		// Simple version
-		this.addCommand("pong", command -> command.getSender().sendMessage("PING!"));
+		this.addCommand("pong", command -> command.getSender().sendMessage("PING!")); // The simple version also returns the Command object, for argument chaining
 	}
 
 }
