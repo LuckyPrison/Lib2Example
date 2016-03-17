@@ -41,6 +41,8 @@ public class LibE extends Plugin /* Modular plugin */ {
 
 				// Gives the player a speed potion effect
 				speed.boost(1000 /* Duration (ticks) */, 1 /* Amplifier (+1 shift) */, true /* Particles */);
+
+				player.health().setMax(40);
 			}
 
 			@HandlerMeta(ignoreCancelled = true)
