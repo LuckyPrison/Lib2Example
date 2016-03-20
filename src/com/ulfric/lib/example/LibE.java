@@ -8,6 +8,7 @@ import com.ulfric.lib.coffee.event.Listener;
 import com.ulfric.lib.craft.entity.player.Player;
 import com.ulfric.lib.craft.entity.player.PlayerUtils;
 import com.ulfric.lib.craft.event.block.BlockBreakEvent;
+import com.ulfric.lib.craft.event.player.AsyncPlayerChatEvent;
 import com.ulfric.lib.craft.event.player.PlayerJoinEvent;
 
 public class LibE extends Plugin /* Modular plugin */ {
@@ -50,6 +51,14 @@ public class LibE extends Plugin /* Modular plugin */ {
 			{
 				event.setCancelled(true);
 				event.getPlayer().sendMessage("No breaking!");
+			}
+
+			@HandlerMeta(ignoreCancelled = true)
+			public void onChat(AsyncPlayerChatEvent event)
+			{
+				this.log("Chat!");
+
+				event.getRecipients().clear();
 			}
 		});
 
