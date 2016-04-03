@@ -44,7 +44,11 @@ public class LibE extends Plugin /* Modular plugin */ {
 				// Gives the player a speed potion effect
 				speed.boost(1000 /* Duration (ticks) */, 1 /* Amplifier (+1 shift) */, true /* Particles */);
 
+				// Sets the player's hearts to 40
 				player.health().setMax(40);
+
+				// Scoreboard test
+				player.scoreboard().addElement("test.test", "Example");
 			}
 
 			@HandlerMeta(ignoreCancelled = true) // Ignore cancelled events
