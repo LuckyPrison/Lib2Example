@@ -11,6 +11,8 @@ import com.ulfric.lib.craft.entity.player.PlayerUtils;
 import com.ulfric.lib.craft.event.block.BlockBreakEvent;
 import com.ulfric.lib.craft.event.player.AsyncPlayerChatEvent;
 import com.ulfric.lib.craft.event.player.PlayerJoinEvent;
+import com.ulfric.lib.craft.inventory.item.ItemUtils;
+import com.ulfric.lib.craft.inventory.item.Material;
 
 public class LibE extends Plugin /* Modular plugin */ {
 
@@ -49,6 +51,9 @@ public class LibE extends Plugin /* Modular plugin */ {
 
 				// Scoreboard test
 				player.scoreboard().addElement("test.test", "Example");
+
+				// Inventories test
+				player.inv().add(ItemUtils.getItem(Material.of("dirt")));
 			}
 
 			@HandlerMeta(ignoreCancelled = true) // Ignore cancelled events
@@ -70,19 +75,19 @@ public class LibE extends Plugin /* Modular plugin */ {
 			@HandlerMeta(priority = Priority.LOW)
 			public void onJoinLow(PlayerJoinEvent event)
 			{
-				this.log("1");
+				this.log("PRIORITY:LOW");
 			}
 
 			@HandlerMeta(priority = Priority.NORMAL)
 			public void onJoinNormal(PlayerJoinEvent event)
 			{
-				this.log("2");
+				this.log("PRIORITY:NORMAL");
 			}
 
 			@HandlerMeta(priority = Priority.HIGH)
 			public void onJoinHigh(PlayerJoinEvent event)
 			{
-				this.log("3");
+				this.log("PRIORITY:HIGH");
 			}
 			// End - tests to make sure priority works properly
 		});
