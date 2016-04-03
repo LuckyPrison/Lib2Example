@@ -5,6 +5,7 @@ import com.ulfric.lib.coffee.command.Argument;
 import com.ulfric.lib.coffee.command.Command;
 import com.ulfric.lib.coffee.event.HandlerMeta;
 import com.ulfric.lib.coffee.event.Listener;
+import com.ulfric.lib.coffee.event.Priority;
 import com.ulfric.lib.craft.entity.player.Player;
 import com.ulfric.lib.craft.entity.player.PlayerUtils;
 import com.ulfric.lib.craft.event.block.BlockBreakEvent;
@@ -46,20 +47,40 @@ public class LibE extends Plugin /* Modular plugin */ {
 				player.health().setMax(40);
 			}
 
-			@HandlerMeta(ignoreCancelled = true)
+			@HandlerMeta(ignoreCancelled = true) // Ignore cancelled events
 			public void onBreak(BlockBreakEvent event)
 			{
 				event.setCancelled(true);
-				event.getPlayer().sendMessage("No breaking!");
+				event.getPlayer().sendMessage("No breaking!"); // Send the player a message
 			}
 
 			@HandlerMeta(ignoreCancelled = true)
 			public void onChat(AsyncPlayerChatEvent event)
 			{
-				this.log("Chat!");
+				this.log("Chat!"); // Log a message
 
-				event.getRecipients().clear();
+				event.getRecipients().clear(); // Cancel the chat message from going anywhere
 			}
+
+			// Start - tests to make sure priority works properly
+			@HandlerMeta(priority = Priority.LOW)
+			public void onJoinLow(PlayerJoinEvent event)
+			{
+				this.log("1");
+			}
+
+			@HandlerMeta(priority = Priority.NORMAL)
+			public void onJoinNormal(PlayerJoinEvent event)
+			{
+				this.log("2");
+			}
+
+			@HandlerMeta(priority = Priority.HIGH)
+			public void onJoinHigh(PlayerJoinEvent event)
+			{
+				this.log("3");
+			}
+			// End - tests to make sure priority works properly
 		});
 
 		// Registers a command with the module
@@ -68,7 +89,7 @@ public class LibE extends Plugin /* Modular plugin */ {
 			@Override
 			public void run()
 			{
-				// Sends "PONG! <some bullshit>"
+				// Sends "PONG! <name>"
 				this.getSender().sendMessage("PONG! " + this.getObject("player"));
 			}
 		}.addArgument(Argument.builder().addResolver((sender, str) -> PlayerUtils.getPlayer(str)).setName("Player").setPath("player").setDefaultValue(PlayerUtils::getPlayer).build()));
