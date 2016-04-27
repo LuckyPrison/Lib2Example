@@ -3,8 +3,8 @@ package com.ulfric.lib.example;
 import com.ulfric.lib.bukkit.module.Plugin;
 import com.ulfric.lib.coffee.command.Argument;
 import com.ulfric.lib.coffee.command.Command;
-import com.ulfric.lib.coffee.event.HandlerMeta;
 import com.ulfric.lib.coffee.event.Listener;
+import com.ulfric.lib.coffee.event.ListenerMeta;
 import com.ulfric.lib.coffee.event.Priority;
 import com.ulfric.lib.craft.entity.player.Player;
 import com.ulfric.lib.craft.entity.player.PlayerUtils;
@@ -22,7 +22,7 @@ public class LibE extends Plugin /* Modular plugin */ {
 		// Adds a new listener, with the owner being the LibE plugin
 		this.addListener(new Listener(this) // Listener#new(ModuleBase)
 		{
-			@HandlerMeta // Not required, Eclipse just freaks out
+			@ListenerMeta // Not required, Eclipse just freaks out
 			public void onJoin(PlayerJoinEvent /* Not a CraftBukkit PlayerJoinEvent */ event)
 			{
 				// Not a CraftBukkit player
@@ -56,14 +56,14 @@ public class LibE extends Plugin /* Modular plugin */ {
 				player.inv().add(ItemUtils.getItem(Material.of("dirt")));
 			}
 
-			@HandlerMeta(ignoreCancelled = true) // Ignore cancelled events
+			@ListenerMeta(ignoreCancelled = true) // Ignore cancelled events
 			public void onBreak(BlockBreakEvent event)
 			{
 				event.setCancelled(true);
 				event.getPlayer().sendMessage("No breaking!"); // Send the player a message
 			}
 
-			@HandlerMeta(ignoreCancelled = true)
+			@ListenerMeta(ignoreCancelled = true)
 			public void onChat(AsyncPlayerChatEvent event)
 			{
 				this.log("Chat!"); // Log a message
@@ -72,19 +72,19 @@ public class LibE extends Plugin /* Modular plugin */ {
 			}
 
 			// Start - tests to make sure priority works properly
-			@HandlerMeta(priority = Priority.LOW)
+			@ListenerMeta(priority = Priority.LOW)
 			public void onJoinLow(PlayerJoinEvent event)
 			{
 				this.log("PRIORITY:LOW");
 			}
 
-			@HandlerMeta(priority = Priority.NORMAL)
+			@ListenerMeta(priority = Priority.NORMAL)
 			public void onJoinNormal(PlayerJoinEvent event)
 			{
 				this.log("PRIORITY:NORMAL");
 			}
 
-			@HandlerMeta(priority = Priority.HIGH)
+			@ListenerMeta(priority = Priority.HIGH)
 			public void onJoinHigh(PlayerJoinEvent event)
 			{
 				this.log("PRIORITY:HIGH");
