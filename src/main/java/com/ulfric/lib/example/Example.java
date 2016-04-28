@@ -14,7 +14,7 @@ import com.ulfric.lib.craft.event.player.PlayerJoinEvent;
 import com.ulfric.lib.craft.inventory.item.ItemUtils;
 import com.ulfric.lib.craft.inventory.item.Material;
 
-public class LibE extends Plugin /* Modular plugin */ {
+public class Example extends Plugin /* Modular plugin */ {
 
 	@Override
 	public void onFirstEnable() // Only calls on the first enable
