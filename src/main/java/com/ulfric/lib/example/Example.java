@@ -1,18 +1,23 @@
 package com.ulfric.lib.example;
 
+import com.ulfric.lib.bukkit.Lib;
 import com.ulfric.lib.bukkit.module.Plugin;
 import com.ulfric.lib.coffee.command.Argument;
 import com.ulfric.lib.coffee.command.Command;
 import com.ulfric.lib.coffee.event.Listener;
 import com.ulfric.lib.coffee.event.ListenerMeta;
 import com.ulfric.lib.coffee.event.Priority;
+import com.ulfric.lib.coffee.module.ModuleUtils;
+import com.ulfric.lib.coffee.string.Strings;
 import com.ulfric.lib.craft.entity.player.Player;
 import com.ulfric.lib.craft.entity.player.PlayerUtils;
 import com.ulfric.lib.craft.event.block.BlockBreakEvent;
 import com.ulfric.lib.craft.event.player.AsyncPlayerChatEvent;
 import com.ulfric.lib.craft.event.player.PlayerJoinEvent;
+import com.ulfric.lib.craft.event.server.ServerPingEvent;
 import com.ulfric.lib.craft.inventory.item.ItemUtils;
 import com.ulfric.lib.craft.inventory.item.Material;
+import com.ulfric.lib.craft.string.ChatUtils;
 
 public class Example extends Plugin /* Modular plugin */ {
 
@@ -90,6 +95,12 @@ public class Example extends Plugin /* Modular plugin */ {
 				this.log("PRIORITY:HIGH");
 			}
 			// End - tests to make sure priority works properly
+
+			@ListenerMeta(priority = Priority.LOWEST)
+			public void onPing(ServerPingEvent event)
+			{
+				event.setMotd(Strings.format(ChatUtils.color("&aCurrent development version: &7{0}\n&aModules loaded: &7{1}"), Lib.get().getModuleVersion(), ModuleUtils.stream().count()));
+			}
 		});
 
 		// Registers a command with the module
