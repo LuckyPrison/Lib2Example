@@ -112,7 +112,7 @@ public class Example extends Plugin /* Modular plugin */ {
 				// Sends "PONG! <name>"
 				this.getSender().sendMessage("PONG! " + this.getObject("player"));
 			}
-		}.addArgument(Argument.builder().addResolver((sender, str) -> PlayerUtils.getPlayer(str)).setName("Player").setPath("player").setDefaultValue(PlayerUtils::getPlayer).build()));
+		}.addArgument(Argument.builder().addResolver((sender, str) -> PlayerUtils.getPlayer(str)).setPath("player").setDefaultValue(PlayerUtils::getPlayer).build()));
 
 		// Simple version
 		this.addCommand("pong", command -> command.getSender().sendMessage("PING!")); // The simple version also returns the Command object, for argument chaining
