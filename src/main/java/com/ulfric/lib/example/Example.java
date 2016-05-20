@@ -1,7 +1,11 @@
 package com.ulfric.lib.example;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
 import com.ulfric.lib.bukkit.Lib;
 import com.ulfric.lib.bukkit.module.Plugin;
+import com.ulfric.lib.coffee.ObjectUtils;
 import com.ulfric.lib.coffee.command.Argument;
 import com.ulfric.lib.coffee.command.Command;
 import com.ulfric.lib.coffee.event.Listener;
@@ -63,18 +67,9 @@ public class Example extends Plugin /* Modular plugin */ {
 				// Inventories test
 				ItemStack item = ItemUtils.getItem(Material.of("DIAMOND_SWORD"));
 
-				String enchantKey = "sharpness";
+				List<Enchant> enchants = Lists.newArrayList(Enchant.of(ObjectUtils.validateNotNull(Enchantment.byName("sharpness")), 1), Enchant.of(ObjectUtils.validateNotNull(Enchantment.byName("fire aspect")), 3));
 
-				Enchantment ench = Enchantment.byName(enchantKey);
-
-				if (ench != null)
-				{
-					item.enchants().add(Enchant.of(ench, 1));
-				}
-				else
-				{
-					this.log("Unable to find enchant for: " + enchantKey);
-				}
+				item.enchants().addAll(enchants);
 
 				player.inv().add(item);
 			}
