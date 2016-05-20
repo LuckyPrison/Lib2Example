@@ -15,8 +15,11 @@ import com.ulfric.lib.craft.event.block.BlockBreakEvent;
 import com.ulfric.lib.craft.event.player.AsyncPlayerChatEvent;
 import com.ulfric.lib.craft.event.player.PlayerJoinEvent;
 import com.ulfric.lib.craft.event.server.ServerPingEvent;
+import com.ulfric.lib.craft.inventory.item.ItemStack;
 import com.ulfric.lib.craft.inventory.item.ItemUtils;
 import com.ulfric.lib.craft.inventory.item.Material;
+import com.ulfric.lib.craft.inventory.item.enchant.Enchant;
+import com.ulfric.lib.craft.inventory.item.enchant.Enchantment;
 import com.ulfric.lib.craft.string.ChatUtils;
 
 public class Example extends Plugin /* Modular plugin */ {
@@ -58,7 +61,22 @@ public class Example extends Plugin /* Modular plugin */ {
 				player.scoreboard().addElement("test.test", "Example");
 
 				// Inventories test
-				player.inv().add(ItemUtils.getItem(Material.of("dirt")));
+				ItemStack item = ItemUtils.getItem(Material.of("DIAMOND_SWORD"));
+
+				String enchantKey = "sharpness";
+
+				Enchantment ench = Enchantment.byName(enchantKey);
+
+				if (ench != null)
+				{
+					item.enchants().add(Enchant.of(ench, 1));
+				}
+				else
+				{
+					this.log("Unable to find enchant for: " + enchantKey);
+				}
+
+				player.inv().add(item);
 			}
 
 			@ListenerMeta(ignoreCancelled = true) // Ignore cancelled events
