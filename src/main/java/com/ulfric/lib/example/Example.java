@@ -34,7 +34,7 @@ public class Example extends Plugin /* Modular plugin */ {
 		// Adds a new listener, with the owner being the LibE plugin
 		this.addListener(new Listener(this) // Listener#new(ModuleBase)
 		{
-			@ListenerMeta // Not required, Eclipse just freaks out
+			@ListenerMeta // Not required, Eclipse just freaks out without any annotation
 			public void onJoin(PlayerJoinEvent /* Not a CraftBukkit PlayerJoinEvent */ event)
 			{
 				// Not a CraftBukkit player
